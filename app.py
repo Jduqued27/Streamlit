@@ -9,7 +9,7 @@ from pymcdm.helpers import rrankdata
 from pymcdm import visuals
 
 st.set_page_config(page_title="MCDM Dashboard", layout="wide")
-st.title("Multi-Criteria Decision Making (MCDM) Dashboard")
+st.title("Multi-Criteria Decision Making (MCDM) Dashboard - Jose MAnuel Duque")
 
 # --- 1. DATA INPUT ---
 st.sidebar.header("1. Upload or Edit Data")
