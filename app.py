@@ -96,7 +96,17 @@ if st.button("Run MCDM Analysis"):
             
             prefs.append(pref)
             ranks.append(rank)
-            
+        pref_df = pd.DataFrame(zip(*prefs), columns=selected_method_names, index=alts_names).round(3)
+        rank_df = pd.DataFrame(zip(*ranks), columns=selected_method_names, index=alts_names).astype(int)
+
+        st.subheader("Download results")
+        csv_rank = rank_df.to_csv().encode("utf-8")
+        st.download_button(
+            label="Download ranking table as CSV",
+            data=csv_rank,
+            file_name="mcdm_ranking.csv",
+            mime="text/csv"
+        )   
         col1, col2 = st.columns(2)
         
         with col1:
