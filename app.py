@@ -114,3 +114,8 @@ if st.button("Run MCDM Analysis"):
         fig, ax = plt.subplots(figsize=(7, 7), dpi=150, tight_layout=True, subplot_kw=dict(projection='polar'))
         visuals.polar_plot(ranks, labels=selected_method_names, legend_ncol=2, ax=ax)
         st.pyplot(fig)
+
+        st.subheader("Preference scores by method")
+
+        plot_df = pref_df.copy()
+        st.bar_chart(plot_df)
