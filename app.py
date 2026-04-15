@@ -125,26 +125,11 @@ if st.button("Run MCDM Analysis"):
         visuals.polar_plot(ranks, labels=selected_method_names, legend_ncol=2, ax=ax)
         st.pyplot(fig)
 
-        st.subheader("Preference scores by method")
+        st.subheader("Preference scores")
 
-        plot_df = pref_df.copy().reset_index()
-        plot_df = plot_df.rename(columns={"index": "alternative"})
-
-        plot_df_long = plot_df.melt(
-            id_vars="alternative",
-            var_name="method",
-            value_name="score"
+        selected_col = st.selectbox(
+            "Select method to plot",
+            pref_df.columns.tolist()
         )
 
-        chart = alt.Chart(plot_df_long).mark_bar().encode(
-            x=alt.X("alternative:N", title="Alternative"),
-            xOffset="method:N",
-            y=alt.Y("score:Q", title="Preference score"),
-            color=alt.Color("method:N", title="Method"),
-            tooltip=["alternative", "method", "score"]
-        ).properties(
-            width=700,
-            height=400
-        )
-
-        st.altair_chart(chart, use_container_width=True)
+        st.bar_chart(pref_df[[selected_col]])
