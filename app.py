@@ -11,6 +11,15 @@ from pymcdm import visuals
 st.set_page_config(page_title="MCDM Dashboard", layout="wide")
 st.title("Multi-Criteria Decision Making (MCDM) Dashboard - Jose Manuel Duque")
 
+def randomize_weight_sliders():
+    n = len(criteria_names)
+    vals = np.random.rand(n)
+    vals = vals / vals.sum()   # optional: make them sum to 1
+
+    for i, col in enumerate(criteria_names):
+        st.session_state[f"w_{col}"] = float(vals[i])
+
+
 # --- 1. DATA INPUT ---
 st.sidebar.header("1. Upload or Edit Data")
 uploaded_file = st.sidebar.file_uploader("Upload CSV", type=['csv'])
@@ -42,7 +51,7 @@ alts_data = edited_df.iloc[:, 1:].to_numpy()
 # --- 2. WEIGHTS & TYPES CONFIGURATION ---
 st.sidebar.header("2. Criteria Configuration")
 st.sidebar.markdown("Set weights and types for each criterion.")
-
+st.sidebar.button("Randomize all weights", on_click=randomize_weight_sliders)
 weights_list = []
 types_list = []
 
